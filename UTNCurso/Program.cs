@@ -1,3 +1,4 @@
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using UTNCurso.Connector;
@@ -9,6 +10,7 @@ using UTNCurso.Core.Interfaces;
 using UTNCurso.Core.Mappers;
 using UTNCurso.Core.Requirements;
 using UTNCurso.Infrastructure;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +18,11 @@ builder.Services.SetupDatabase(builder.Configuration.GetConnectionString("TodoCo
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .SetupIdentity();
-builder.Services
-    .AddSingleton<IMapper<TodoItem, TodoItemDto>, TodoItemMapper>();
+//builder.Services
+//    .AddSingleton<IMapper<TodoItem, TodoItemDto>, TodoItemMapper>();
+builder.Services.AddAutoMapper(typeof(TodoItem));
+builder.Services.AddScoped<IValidator<TodoItemDto>, TodoItemDtoValidator>();
+
 builder.Services
     .AddTransient<ITodoItemService, TodoItemService>();
 builder.Services.AddAuthorization(opt =>

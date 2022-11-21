@@ -37,15 +37,17 @@ namespace UTNCurso.Core.Domain.Services
 
         public async Task<TodoItemDto> GetAsync(long id)
         {
-            var agendas = await _agendaRepository.GetAll();
-            var agenda = agendas.FirstOrDefault();
+            // var agendas = await _agendaRepository.GetAll();
+            // var agenda = agendas.FirstOrDefault();
+            var agenda = await _agendaRepository.GetFirstAgenda();
             return _mapper.MapDalToDto(agenda.GetTodoItemById(id));
         }
 
         public async Task<Result> CreateAsync(TodoItemDto todoItemdto)
         {
-            var agendas = await _agendaRepository.GetAll();
-            var agenda = agendas.FirstOrDefault();
+            // var agendas = await _agendaRepository.GetAll();
+            // var agenda = agendas.FirstOrDefault();
+            var agenda = await _agendaRepository.GetFirstAgenda();
             agenda.AddTodoItem(_mapper.MapDtoToDal(todoItemdto));
 
             if (agenda.Result.IsSuccessful)
@@ -59,8 +61,9 @@ namespace UTNCurso.Core.Domain.Services
         public async Task<Result> UpdateAsync(TodoItemDto todoItemDto)
         {
             _logger.LogInformation("Updating todo item");
-            var agendas = await _agendaRepository.GetAll();
-            var agenda = agendas.FirstOrDefault();
+            // var agendas = await _agendaRepository.GetAll();
+            // var agenda = agendas.FirstOrDefault();
+            var agenda = await _agendaRepository.GetFirstAgenda();
             using (_logger.BeginScope("Trying to update"))
             {
                 try
@@ -105,8 +108,9 @@ namespace UTNCurso.Core.Domain.Services
 
         public async Task<Result> RemoveAsync(long id)
         {
-            var agendas = await _agendaRepository.GetAll();
-            var agenda = agendas.FirstOrDefault();
+            // var agendas = await _agendaRepository.GetAll();
+            // var agenda = agendas.FirstOrDefault();
+            var agenda = await _agendaRepository.GetFirstAgenda();
             var todoItem = agenda.GetTodoItemById(id);
 
             if (todoItem == null)

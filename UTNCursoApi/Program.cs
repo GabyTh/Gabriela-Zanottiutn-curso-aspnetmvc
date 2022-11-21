@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -43,6 +44,7 @@ builder.Services.SetupDatabase(conf);
 builder.Services.AddTransient<ITodoItemService, TodoItemService>();
 builder.Services
     .AddSingleton<IMapper<TodoItem, TodoItemDto>, TodoItemAutoMapper>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

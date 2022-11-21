@@ -17,5 +17,11 @@ namespace UTNCurso.Infrastructure.Repository
         {
             return await _todoContext.Agenda.ToListAsync();
         }
+
+        public async Task<Agenda> GetFirstAgenda()
+        {
+            return await _todoContext.Agenda.FirstOrDefaultAsync();
+        }
+
     }
 }
