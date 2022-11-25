@@ -48,5 +48,10 @@ namespace UTNCurso.BLL.Services.Tests.Fakes
             Store.Remove(storedEntity);
             Store.Add(entity);
         }
+
+        public Task<Agenda> GetFirstAgenda()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
